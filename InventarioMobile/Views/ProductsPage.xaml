@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="InventarioMobile.Views.ProductsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:model="clr-namespace:InventarioMobile.Models.Response"
+    xmlns:viewModel="clr-namespace:InventarioMobile.ViewModels"
+    Title="Inventário"
+    x:DataType="viewModel:ProductsViewModel">
+
+    <Grid RowDefinitions="auto,*,auto">
+
+        <ActivityIndicator
+            Margin="0,20,0,0"
+            IsEnabled="{Binding IsBusy}"
+            IsRunning="{Binding IsBusy}"
+            IsVisible="{Binding IsBusy}"
+            Color="{StaticResource Primary}" />
+
+        <CollectionView
+            Grid.Row="1"
+            Margin="20"
+            EmptyView="Nenhum item encontrado"
+            ItemsSource="{Binding Products}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid
+                        x:DataType="model:ProductResponse"
+                        ColumnDefinitions="*,*"
+                        RowDefinitions="auto,auto,auto,auto">
+
+                        <Label FontAttributes="Bold" Text="{Binding Barcode}" />
+
+                        <Label
+                            Grid.Column="1"
+                            FontAttributes="Bold"
+                            HorizontalOptions="End"
+                            Text="{Binding Estoque, StringFormat='Estoque: {0}'}" />
+
+                        <Label
+                            Grid.Row="2"
+                            Grid.ColumnSpan="2"
+                            FontSize="Body"
+                            Text="{Binding Descricao}" />
+
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            FontAttributes="Bold"
+                            HorizontalOptions="End"
+                            Text="{Binding Preco, StringFormat='R$ {0:F2}'}"
+                            TextColor="Red" />
+
+                        <BoxView
+                            Grid.Row="3"
+                            Grid.ColumnSpan="2"
+                            HeightRequest="1" />
+
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ProductsViewModel}}, Path=GoToEditCommand}"
+                                CommandParameter="{Binding .}"
+                                NumberOfTapsRequired="1" />
+                        </Grid.GestureRecognizers>
+
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button
+            Grid.Row="2"
+            Margin="10"
+            Command="{Binding GoToAddProductCommand}"
+            FontAttributes="Bold"
+            Text="Novo Produto"
+            VerticalOptions="End" />
+
+    </Grid>
+
+</ContentPage>

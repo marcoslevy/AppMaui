@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="InventarioMobile.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:InventarioMobile"
+    xmlns:views="clr-namespace:InventarioMobile.Views">
+
+    <ShellContent
+        Title="Login"
+        ContentTemplate="{DataTemplate views:LoginPage}"
+        Route="LoginPage"
+        Shell.NavBarIsVisible="False" />
+
+    <FlyoutItem Title="Produtos">
+        <Tab>
+            <ShellContent
+                Title="Produtos"
+                ContentTemplate="{DataTemplate views:ProductsPage}"
+                Route="ProductsPage"
+                Shell.NavBarIsVisible="True" />
+        </Tab>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Controle Inventário">
+        <Tab>
+            <ShellContent
+                Title="Controle Inventário"
+                ContentTemplate="{DataTemplate views:EditProductPage}"
+                Route="EditProductPage"
+                Shell.NavBarIsVisible="True" />
+        </Tab>
+    </FlyoutItem>
+
+</Shell>
